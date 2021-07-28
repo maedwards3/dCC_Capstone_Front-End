@@ -3,7 +3,7 @@ import { Container, TextField, Button } from '@material-ui/core';
 import UseForm from '../UseForm/useForm';
 import axios from 'axios';
 
-const Login = () => {
+const Login = (props) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const { values, handleChange, handleSubmit } = UseForm(() => {
         loginUser(values);
@@ -45,10 +45,11 @@ const Login = () => {
                 console.log("user data", data);
                 localStorage.setItem("user", data);
                 setIsLoggedIn(true);
-
+                props.getUser();
             }
-            catch {
-
+            catch (error) {
+                console.log("There was an error in the getSetUser method");
+                console.error(error)
             }
         }
 
