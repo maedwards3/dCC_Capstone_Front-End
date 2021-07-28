@@ -6,12 +6,12 @@ import Login from './Components/Login/login';
 import Navbar from './Components/NavBar/navBar';
 import Dashboard from './Components/Dashboard/dashboard';
 import Logout from './Components/Logout/logout';
+import CuisineTypes from './Components/CuisineTypes/cuisineTypes';
 
 function App() {
     const [user, setUser] = useState({});
 
     const getUser = async () => {
-        // debugger;
         const jwt = localStorage.getItem("token");
         try {
             let response = await axios.get(
@@ -28,6 +28,7 @@ function App() {
     return (
         <div className="App">
             <Navbar user={user}/>
+            <CuisineTypes />
             <Switch>
                 <Route
                     path="/home"

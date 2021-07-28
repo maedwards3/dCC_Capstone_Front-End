@@ -55,7 +55,6 @@ const Login = (props) => {
             }
         }
 
-
     return(
         <Container>
             <div>
@@ -80,9 +79,7 @@ const Login = (props) => {
             <Button variant="contained" color="primary" onClick={handleSubmit}>Login</Button>
             {isLoggedIn ? <Redirect to="/home"/> : console.log("user is NOT logged in")}
         </Container>
-    )
-
-
-}
+    );
+};
 
 export default Login;
