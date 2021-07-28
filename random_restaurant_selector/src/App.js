@@ -28,8 +28,11 @@ function App() {
     return (
         <div className="App">
             <Navbar user={user}/>
-            <CuisineTypes />
             <Switch>
+                <Route
+                    path="/filter"
+                    component={CuisineTypes}
+                />
                 <Route
                     path="/home"
                     component={Dashboard}

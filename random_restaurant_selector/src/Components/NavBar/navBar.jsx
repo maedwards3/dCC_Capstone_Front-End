@@ -86,28 +86,38 @@ export default function NavBar(props) {
                                                     horizontal: "left",
                                                 }}
                                             >
-                                            {!user.userName ? (
-                                                <div>
-                                                    <MenuItem onClick={handleMenuListToClosed}>
-                                                        <Link to="/register">
-                                                            Register
-                                                        </Link>
-                                                    </MenuItem>
-                                                    <MenuItem onClick={handleMenuListToClosed}>
-                                                        <Link to="/login">
-                                                            Login
-                                                        </Link>
-                                                    </MenuItem>
-                                                </div>
-                                            ) : (
-                                                <div>
-                                                    <MenuItem onClick={handleMenuListToClosed}>
-                                                        <Link to="/logout">
-                                                            Logout
-                                                        </Link>
-                                                    </MenuItem>
-                                                </div>
-                                            )}
+                                                <MenuItem onClick={handleMenuListToClosed}>
+                                                    <Link to="/home">
+                                                        Home
+                                                    </Link>
+                                                </MenuItem>
+                                                <MenuItem onClick={handleMenuListToClosed}>
+                                                    <Link to="/filter">
+                                                        Filter Cuisines
+                                                    </Link>
+                                                </MenuItem>
+                                                {!user.userName ? (
+                                                    <div>
+                                                        <MenuItem onClick={handleMenuListToClosed}>
+                                                            <Link to="/register">
+                                                                Register
+                                                            </Link>
+                                                        </MenuItem>
+                                                        <MenuItem onClick={handleMenuListToClosed}>
+                                                            <Link to="/login">
+                                                                Login
+                                                            </Link>
+                                                        </MenuItem>
+                                                    </div>
+                                                ) : (
+                                                    <div>
+                                                        <MenuItem onClick={handleMenuListToClosed}>
+                                                            <Link to="/logout">
+                                                                Logout
+                                                            </Link>
+                                                        </MenuItem>
+                                                    </div>
+                                                )}
                                             </MenuList>
                                         </ClickAwayListener>
                                     </Paper>
