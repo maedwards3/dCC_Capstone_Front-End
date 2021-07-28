@@ -57,7 +57,6 @@ export default function NavBar(props) {
         prevOpen.current = menuListOpen;
     }, [menuListOpen]);
 
-
     return (
         <div className={classes.root}>
             <AppBar position="static">
@@ -82,19 +81,19 @@ export default function NavBar(props) {
                                                 id="menu-list-grow" 
                                                 onKeyDown={handleListKeyDown}
                                                 onClose={handleMenuListToClosed}
-                                                anchorOrigin={{
+                                                anchororigin={{
                                                     vertical: "top",
                                                     horizontal: "left",
                                                 }}
                                             >
                                             {!user.userName ? (
                                                 <div>
-                                                    <MenuItem onclick={handleMenuListToClosed}>
+                                                    <MenuItem onClick={handleMenuListToClosed}>
                                                         <Link to="/register">
                                                             Register
                                                         </Link>
                                                     </MenuItem>
-                                                    <MenuItem onclick={handleMenuListToClosed}>
+                                                    <MenuItem onClick={handleMenuListToClosed}>
                                                         <Link to="/login">
                                                             Login
                                                         </Link>
@@ -102,7 +101,11 @@ export default function NavBar(props) {
                                                 </div>
                                             ) : (
                                                 <div>
-
+                                                    <MenuItem onClick={handleMenuListToClosed}>
+                                                        <Link to="/logout">
+                                                            Logout
+                                                        </Link>
+                                                    </MenuItem>
                                                 </div>
                                             )}
                                             </MenuList>
@@ -112,10 +115,23 @@ export default function NavBar(props) {
                             )}
                         </Popper>
                     </IconButton>
-                    <Typography variant="h6" className={classes.title}>
-                        Random Restaurant Generator
-                    </Typography>
-                    <Typography color="inherit">Welcome {user.userName}</Typography>
+                    <div>
+                        <Typography variant="h6" className={classes.title}>
+                            Random Restaurant Generator
+                        </Typography>
+                    </div>
+                    <div>
+                        {!user.firstName ? (
+                            <div />
+                            ) : (
+                                <Typography
+                                anchororigin={{
+                                    vertical: "top",
+                                    horizontal: "right",
+                                }}
+                                color="inherit">Welcome {user.userName}</Typography>
+                            )}
+                    </div>
                 </Toolbar>
             </AppBar>
         </div>

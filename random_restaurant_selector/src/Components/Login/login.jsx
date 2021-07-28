@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, TextField, Button } from '@material-ui/core';
 import UseForm from '../UseForm/useForm';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 const Login = (props) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -36,7 +37,6 @@ const Login = (props) => {
 
         async function getSetUser() {
             try {
-                debugger;
                 let token = localStorage.getItem("token");
                 console.log(token);
                 let response = await axios.get(
@@ -78,7 +78,7 @@ const Login = (props) => {
             </div>
             <br />
             <Button variant="contained" color="primary" onClick={handleSubmit}>Login</Button>
-            {isLoggedIn ? console.log("User IS logged in") : console.log("user is NOT logged in")}
+            {isLoggedIn ? <Redirect to="/home"/> : console.log("user is NOT logged in")}
         </Container>
     )
 
