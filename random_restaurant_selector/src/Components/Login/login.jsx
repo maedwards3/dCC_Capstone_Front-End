@@ -23,7 +23,7 @@ const Login = (props) => {
                 console.log(values);
                 console.log(response);
 
-                const token = response.data;
+                const token = response.data.token;
 
                 localStorage.setItem("token", token);
                 console.log(localStorage, "hit jwt")
@@ -36,13 +36,15 @@ const Login = (props) => {
 
         async function getSetUser() {
             try {
-                const token = localStorage.getItem("token");
+                debugger;
+                let token = localStorage.getItem("token");
+                console.log(token);
                 let response = await axios.get(
-                    "https://localhost:44934/api/examples/user",
-                    { header: {Authorization: "Bearer " + token } }
+                    "https://localhost:44394/api/examples/user",
+                    { headers: { Authorization: "Bearer " + token } }
                 );
                 const { data } = response;
-                console.log("user data", data);
+                console.log("user data: ", data);
                 localStorage.setItem("user", data);
                 setIsLoggedIn(true);
                 props.getUser();
