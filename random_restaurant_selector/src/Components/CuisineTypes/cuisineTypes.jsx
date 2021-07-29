@@ -27,6 +27,7 @@ export default function CuisineTypes() {
         Pizza: true,
         Thai: true,
         Turkish: true,
+        Vegetarian: true,
         Vietnamese: true,
     });
 
@@ -117,6 +118,10 @@ export default function CuisineTypes() {
                 <FormControlLabel
                 control={<Switch checked={state.Turkish} onChange={handleChange} name="Turkish" />}
                 label="Turkish"
+                />
+                <FormControlLabel
+                control={<Switch checked={state.Vegetarian} onChange={handleChange} name="Vegetarian" />}
+                label="Vegetarian"
                 />
                 <FormControlLabel
                 control={<Switch checked={state.Vietnamese} onChange={handleChange} name="Vietnamese" />}
