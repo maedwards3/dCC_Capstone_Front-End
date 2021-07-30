@@ -10,6 +10,8 @@ import CuisineTypes from './Components/CuisineTypes/cuisineTypes';
 import RestaurantRating from './Components/Ratings/ratings';
 import SavedFavorites from './Components/SavedFavorites/savedFavorites';
 import PriceSelector from './Components/PriceSelector/priceSelector';
+import DistanceSelector from './Components/DistanceSelector/distanceSelector';
+import ReturnedRestaurants from './Components/ReturnedRestaurants/returnedRestaurants';
 
 function App() {
     const [user, setUser] = useState({});
@@ -67,6 +69,14 @@ function App() {
 				<Route
 					path="/filter2"
 					component={PriceSelector}
+				/>
+				<Route
+					path="/filter3"
+					component={DistanceSelector}
+				/>
+				<Route
+					path="/results"
+					component={ReturnedRestaurants}
 				/>
                 <Route 
                     path="/userRating"
