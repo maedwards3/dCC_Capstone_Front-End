@@ -73,9 +73,20 @@ const PriceSelector = () => {
             <AttachMoneyIcon/>
             </div>
             <div>
-                <Button variant="outlined"
-                color="Primary">
-                    <Link>
+                <Button 
+                    variant="outlined"
+                    color="Primary">
+                    <Link to="/filter">
+                        Back to cuisine selection
+                    </Link>
+                </Button>
+            </div>
+            <div />
+            <div>
+                <Button 
+                    variant="outlined"
+                    color="Primary">
+                    <Link to="/filter3">
                         Select distance
                     </Link>
                 </Button>
