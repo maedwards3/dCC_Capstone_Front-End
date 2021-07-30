@@ -15,5 +15,5 @@ export default function Logout() {
         }
     ;}
 
-    return <Redirect to="/dashboard" {...logoutUser()} />
+    return <Redirect to="/" {...logoutUser()} />
 };

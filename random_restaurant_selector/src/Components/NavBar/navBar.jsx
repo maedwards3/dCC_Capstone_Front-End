@@ -87,7 +87,7 @@ export default function NavBar(props) {
                                                 }}
                                             >
                                                 <MenuItem onClick={handleMenuListToClosed}>
-                                                    <Link to="/home">
+                                                    <Link to="/">
                                                         Home
                                                     </Link>
                                                 </MenuItem>
@@ -111,11 +111,20 @@ export default function NavBar(props) {
                                                     </div>
                                                 ) : (
                                                     <div>
-                                                        <MenuItem onClick={handleMenuListToClosed}>
-                                                            <Link to="/logout">
-                                                                Logout
-                                                            </Link>
-                                                        </MenuItem>
+                                                        <div>
+                                                            <MenuItem onClick={handleMenuListToClosed}>
+                                                                <Link to="/reviews">
+                                                                    My Reviews
+                                                                </Link>
+                                                            </MenuItem>
+                                                        </div>
+                                                        <div>
+                                                            <MenuItem onClick={handleMenuListToClosed}>
+                                                                <Link to="/logout">
+                                                                    Logout
+                                                                </Link>
+                                                            </MenuItem>
+                                                        </div>
                                                     </div>
                                                 )}
                                             </MenuList>

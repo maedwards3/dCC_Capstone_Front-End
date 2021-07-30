@@ -78,7 +78,7 @@ const Login = (props) => {
             </div>
             <br />
             <Button variant="contained" color="primary" onClick={handleSubmit}>Login</Button>
-            {isLoggedIn ? <Redirect to="/home"/> : console.log("user is NOT logged in")}
+            {isLoggedIn ? <Redirect to="/"/> : console.log("user is NOT logged in")}
         </Container>
     );
 };
