@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 export default function RestaurantRating() {
-    const [value, setValue] = useState(2);
+    const [value, setValue] = useState(0);
 
     return (
         <div>

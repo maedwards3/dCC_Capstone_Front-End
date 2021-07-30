@@ -1,8 +1,7 @@
-.filter-button {
+.price-selector-box {
     position: absolute;
     top: 50%;
     left: 50%;
     margin-right: -50%;
-    margin-top: 1vh;
     transform: translate(-50%, -50%)
 };

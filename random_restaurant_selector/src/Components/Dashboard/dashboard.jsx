@@ -6,13 +6,12 @@ import './dashboard.css';
 export default function Dashboard () {
     return (
         <div>
-            <div >
+            <div className="filter-button">
                 <Button 
                     variant="outlined"
                     color="secondary"
-                    className="filter-button"
                 >
-                    <Link to="filter">
+                    <Link to="/filter">
                         Find a random restaurant!
                     </Link>
                 </Button>

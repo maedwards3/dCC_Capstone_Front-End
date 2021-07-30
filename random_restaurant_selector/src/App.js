@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import axios from 'axios';
 import RegistrationForm from './Components/Registration/registration';
@@ -8,8 +8,16 @@ import Dashboard from './Components/Dashboard/dashboard';
 import Logout from './Components/Logout/logout';
 import CuisineTypes from './Components/CuisineTypes/cuisineTypes';
 import RestaurantRating from './Components/Ratings/ratings';
+import SavedFavorites from './Components/SavedFavorites/savedFavorites';
+import PriceSelector from './Components/PriceSelector/priceSelector';
+
 function App() {
     const [user, setUser] = useState({});
+    const [userFavorites, setUserFavorites] = useState({});
+
+    useEffect(async () => {
+      getUserFavorites()
+    })
 
     const getUser = async () => {
         const jwt = localStorage.getItem("token");
@@ -25,20 +33,21 @@ function App() {
         }
     };
 
+    const getUserFavorites = async (userId) => {
+      let response = await axios.get(`https://localhost:44394/api/savedFavorite/${userId}`
+          );
+      setUserFavorites(response.data);
+    }
+
     return (
         <div className="App">
             <Navbar user={user}/>
-            <RestaurantRating />
             <Switch>
-                <Route
-                    path="/filter"
-                    component={CuisineTypes}
-                />
-                <Route
+				<Route
                     path="/home"
                     component={Dashboard}
                 />
-                <Route 
+				<Route 
                     path="/register" 
                     component={RegistrationForm}
                 />
@@ -50,6 +59,23 @@ function App() {
                 <Route
                     path="/logout"
                     component={Logout}
+                />
+                <Route
+                    path="/filter"
+                    component={CuisineTypes}
+                />
+				<Route
+					path="/filter2"
+					component={PriceSelector}
+				/>
+                <Route 
+                    path="/userRating"
+                    component={RestaurantRating}
+                />
+                <Route 
+                    path="/savedFavorites"
+                    render={(props) =>
+                        <SavedFavorites {...props} getSavedFavorites={getUserFavorites} />}
                 />
             </Switch>
         </div>
