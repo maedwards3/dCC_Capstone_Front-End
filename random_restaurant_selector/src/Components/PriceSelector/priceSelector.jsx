@@ -16,10 +16,11 @@ const PriceSelector = (props) => {
     const handleChange = (event) => {
         const { value } = event.target;
         if (value) {
-            setSelected(value);
+            console.log(value);
+            setSelected(parseInt(value));            
             console.log(selected);
-        }
-    }
+        };
+    };
 
     return(
         <div className="price-selector-box">
@@ -31,10 +32,10 @@ const PriceSelector = (props) => {
             <div>
                 <FormControl>
                     <RadioGroup aria-label="gender" name="gender1" value={selected} onChange={handleChange}>
-                        <FormControlLabel value="one" control={<Radio />} label={<AttachMoneyIcon/>} />
-                        <FormControlLabel value="two" control={<Radio />} label={<><AttachMoneyIcon/><AttachMoneyIcon/></>} />
-                        <FormControlLabel value="three" control={<Radio />} label={<><AttachMoneyIcon/><AttachMoneyIcon/><AttachMoneyIcon/></>} />
-                        <FormControlLabel value="four" control={<Radio />} label={<><AttachMoneyIcon/><AttachMoneyIcon/><AttachMoneyIcon/><AttachMoneyIcon/></>} />
+                        <FormControlLabel value="1" control={<Radio />} label={<AttachMoneyIcon/>} />
+                        <FormControlLabel value="2" control={<Radio />} label={<><AttachMoneyIcon/><AttachMoneyIcon/></>} />
+                        <FormControlLabel value="3" control={<Radio />} label={<><AttachMoneyIcon/><AttachMoneyIcon/><AttachMoneyIcon/></>} />
+                        <FormControlLabel value="4" control={<Radio />} label={<><AttachMoneyIcon/><AttachMoneyIcon/><AttachMoneyIcon/><AttachMoneyIcon/></>} />
                     </RadioGroup>
                 </FormControl>
             </div>
@@ -52,7 +53,7 @@ const PriceSelector = (props) => {
                 <Button 
                     variant="outlined"
                     color="Primary"
-                    onclick={() => props.setFinalizePrice(selected)}
+                    onClick={() => props.setFinalizePrice(selected)}
                 >
                     <Link to="/filter3">
                         Select distance
@@ -60,12 +61,19 @@ const PriceSelector = (props) => {
                 </Button>
             </div>
             <div>
-                <Button >
-                    Click me
+                <Button onClick={() => console.log(props.finalizeCuisine)}>
+                    Log FinalizeCuisine
                 </Button>
                 <Button onClick={() => console.log(selected)}>
+                    Log Selected
+                </Button>
+                <Button onClick={() => props.setFinalizePrice(selected)}>
                     Click me next
                 </Button>
+                <Button onClick={() => console.log(props.finalizePrice)}>
+                    Log Finalize Price
+                </Button>
+
             </div>
         </div>
     );

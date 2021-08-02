@@ -30,7 +30,7 @@ const marks = [
 
 function valuetext(value) {
     return `${value}`;
-}
+};
 
 export default function DistanceSelector(props) {
     const classes = useStyles();
@@ -38,19 +38,16 @@ export default function DistanceSelector(props) {
     const [value, setValue] = useState(0);
     const [distInMeters, setDistInMeters] = useState(0);
 
-    const handleChange = (event, newValue) => {
+    const handleChange = async (event, newValue) => {
         setValue(newValue);
+        convertDistance(value);
     };
 
     const convertDistance = async (value) => {
-        debugger;
         const radius = length(value).from('mi').to('m');
-        Math.floor(radius.value);
-        console.log(radius.value);
         setDistInMeters(radius.value);
-        console.log(distInMeters);
-        return;
-    }
+        return props.setFinalizeDistance(distInMeters);
+    };
 
     return (
         <div className="distance-slider">
@@ -73,28 +70,39 @@ export default function DistanceSelector(props) {
                         </Grid>
                     </Grid>
                 </div>
+
+                <Button onClick={() => console.log(props.finalizeCuisine)}>
+                Log Finalize Cuisine 
+                </Button>
+
+                <Button onClick={() => console.log(props.finalizePrice)}>
+                    Log Finalize Price 
+                </Button>
+
                 <Button onClick={() => setValue(value)}>
-                    click me 
+                    Set Value 
                 </Button>
 
                 <Button onClick={() => console.log(value)}>
-                    click me first
-                </Button>
-
-                <Button onClick={() => console.log(distInMeters)}>
-                    click me second
+                    Log Value
                 </Button>
 
                 <Button onClick={() => convertDistance(value)}>
-                    click me third
+                    Convert Distance
+                </Button>
+
+                <Button onClick={() => console.log(distInMeters)}>
+                    Log Dist in Meters
                 </Button>
 
                 <Button onClick={() => props.setFinalizeDistance(distInMeters)}>
-                    click me last
+                    Set Finalize Distance
                 </Button>
-                <Button onClick={() => console.log(distInMeters)}>
-                    click me last again
+
+                <Button onClick={() => console.log(props.finalizeDistance)}>
+                    Log Finalize Distance
                 </Button>
+
             </div>
             <div>
                 <Button 

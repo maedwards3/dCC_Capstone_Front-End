@@ -3,10 +3,11 @@ import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import './dashboard.css';
 
-export default function Dashboard () {
+export default function Dashboard (props) {
+
     return (
-        <div>
-            <div className="filter-button">
+        <div className="filter-button">
+            <div >
                 <Button 
                     variant="outlined"
                     color="secondary"
@@ -16,7 +17,16 @@ export default function Dashboard () {
                     </Link>
                 </Button>
             </div>
-
+            <div>
+                <Button onClick={() => props.reverseGeocode()}>
+                    Click to reverseGeocode
+                </Button>
+            </div>
+            <div>
+                <Button onClick={() => props.findPlaceSearch()}>
+                    Click to Find Place Search
+                </Button>
+            </div>
         </div>    
     );
 }

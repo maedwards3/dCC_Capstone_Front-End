@@ -7,22 +7,39 @@ import Navbar from './Components/NavBar/navBar';
 import Dashboard from './Components/Dashboard/dashboard';
 import Logout from './Components/Logout/logout';
 import CuisineTypes from './Components/CuisineTypes/cuisineTypes';
-import RestaurantRating from './Components/Ratings/ratings';
-// import SavedFavorites from './Components/SavedFavorites/savedFavorites';
 import PriceSelector from './Components/PriceSelector/priceSelector';
 import DistanceSelector from './Components/DistanceSelector/distanceSelector';
 import ReturnedRestaurants from './Components/ReturnedRestaurants/returnedRestaurants';
-import UserReviews from './Components/DisplayUserReviews/displayUserReviews';
+import RestaurantList from './Components/RestaurantList/restaurantList';
+import ConfirmedResponse from './Components/ConfirmedResponse/confirmedResponse';
+// import RestaurantRating from './Components/Ratings/ratings';
+// import UserReviews from './Components/DisplayUserReviews/displayUserReviews';
+// import SavedFavorites from './Components/SavedFavorites/savedFavorites';
 
 function App() {
     const [user, setUser] = useState({});
+	const [restaurants, setRestaurants] = useState([]);
+	const [reviews, setReviews] = useState([]);
+	const [ratings, setRatings] = useState([]);
+	const [finalizeCuisine, setFinalizeCuisine] = useState([]);
+	const [finalizePrice, setFinalizePrice] = useState(0);
+	const [finalizeDistance, setFinalizeDistance] = useState(0);
+	const [results, setResults] = useState([]);
     // const [userFavorites, setUserFavorites] = useState({});
 	const [error, setError] = useState(null);
+	const [userAddress, setUserAddress] = useState({
+		streetNumber: '',
+		streetName: '',
+		city: '',
+		state: '',
+		zipCode: '',
+	});
 	const [origin, setOrigin] = useState({
         lat: '',
         lng: '',
     });
 
+	// used to retrieve user Latitude & Longitude coordinates
 	useEffect(() => {
 		const geo = navigator.geolocation;
 		if (!geo) {
@@ -31,12 +48,8 @@ function App() {
 		}
 		console.log(origin);
 		var watcher = geo.watchPosition(onChange, onError);
-		return () => geo.clearWatch(watcher);
+		return {/* () => geo.clearWatch(watcher) */};
 	}, []);
-
-    // useEffect(async () => {
-	// 	 getUserFavorites();
-    // })
 
 	const onChange = ({coords}) => {
 		setOrigin({
@@ -64,34 +77,100 @@ function App() {
         }
     };
 
-	// // checks to see if browser supports navigator.geolocation
-    // const geoLocatorHere = async () => {
-    //     if('geolocation' in navigator) {
-    //         console.log("Geolocation is in the navigator");
-	// 	} else {
-    //         console.log("it's not in the navigator dawg");
-	// 	}    
-    // };
+	// used in conjunction with Google Reverse Geocoding API request
+	const formatUserAddress = (results) => {
+		return results.map(result => {
+			const {address_components} = result;
+			return {
+				streetNumber: address_components[0], 
+				streetName: address_components[1],
+				city: address_components[2],
+				state: address_components[4],
+				zip: address_components[6],
+			}});
+	};
 
-	// const getGeoLocation = () => {
-	// 	navigator.geolocation.getCurrentPosition(function(position) {
-	// 		console.log("Latitude is :", position.coords.latitude);
-	// 		console.log("Longitude is :", position.coords.longitude);
-	// 	});
-	// 	setOrigin({
-	// 		lat: position.coords.latitude,
-	// 		lng: position.coords.longitude,
-	// 	})
-	// }
+	const reverseGeocode = async () => {
+		let response = await axios.get(
+			`https://maps.googleapis.com/maps/api/geocode/json?latlng=${origin.lat},${origin.lng}&
+			key=${process.env.REACT_APP_GOOGLE_REVERSE_GEOCODE_KEY}`
+		);
+		console.log(response.data);
+		setUserAddress(formatUserAddress(response.data.results))
+		console.log(userAddress);
+	};
 
+	const formatResults = (results) => {
+		return results.map(result => {
+			const { geometry, name, place_id, price_level, photos} = result;
+			return {
+				lat: geometry.location.lat,
+				lng: geometry.location.lng,
+				name,
+				place_id,
+				price_level,
+				photos,
+			}});
+	};
 
-	// uncomment out when ready to use savedFavorites
+    // Used to assist in Google Places Nearby Search request.
+    const spreadKeyWords = () => {
+        return finalizeCuisine.join("+")
+    };
+    
+	const findPlaceSearch = async () => {
+		console.log(finalizeCuisine);
+		console.log(finalizePrice);
+		console.log(finalizeDistance);
+        let urlString = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=
+            ${origin.lat},${origin.lng}&radius=${finalizeDistance}&type=restaurant&maxprice=${finalizePrice}&keyword=${spreadKeyWords()}
+            &key=${process.env.REACT_APP_GOOGLE_NEARBY_SEARCH_KEY}`;
+        console.log(urlString);
+		let response = await axios.get(
+			`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=
+			${origin.lat},${origin.lng}&radius=${finalizeDistance}&type=restaurant&maxprice=${finalizePrice}&keyword=${spreadKeyWords()}
+			&key=${process.env.REACT_APP_GOOGLE_NEARBY_SEARCH_KEY}`
+		);
+		console.log(response.data);
+		setResults(formatResults(response.data.results));
+	};
+
+	// useEffect(async () => {
+	// 	getRestaurants();
+	// });
+
+	// const getRestaurants = async () => {
+	// 	let response = await axios.get('https://localhost:44394/api/restaurant');
+	// 	setRestaurants(response.data);
+	// };
+
+	// useEffect(async () => {
+	// 	getReviews();
+	// });
+
+	// const getReviews = async () => {
+	// 	let response = await axios.get('https://localhost:44394/api/reviews');
+	// 	setReviews(response.data);
+	// };
+
+	// useEffect(async () => {
+	// 	getRatings();
+	// });
+
+	// const getRatings = async () => {
+	// 	let response = await axios.get('https://localhost:44394/api/rating');
+	// 	setRatings(response.data);
+	// };
+
+	// useEffect(async () => {
+	// 	 getUserFavorites();
+    // });
 
     // const getUserFavorites = async (userId) => {
     //   let response = await axios.get(`https://localhost:44394/api/savedFavorite/${userId}`
     //       );
     //   setUserFavorites(response.data);
-    // }
+    // };
 
     return (
         <div className="App">
@@ -99,7 +178,8 @@ function App() {
             <Switch>
 				<Route
                     exact path="/"
-                    component={Dashboard}
+                    render={(props) => 
+                        <Dashboard {...props} reverseGeocode={reverseGeocode} findPlaceSearch={findPlaceSearch} />}
                 />
 				<Route 
                     path="/register" 
@@ -116,35 +196,47 @@ function App() {
                 />
                 <Route
                     path="/filter"
-                    component={CuisineTypes}
+					render={(props) => 
+						<CuisineTypes {...props} setFinalizeCuisine={setFinalizeCuisine} finalizeCuisine={finalizeCuisine} />}
                 />
 				<Route
 					path="/filter2"
-					component={PriceSelector}
+					render={(props) => 
+						<PriceSelector {...props} setFinalizePrice={setFinalizePrice} finalizePrice={finalizePrice} />}
 				/>
 				<Route
 					path="/filter3"
 					render={(props) => 
-                        <DistanceSelector {...props} user={user} origin={origin} />}
+                        <DistanceSelector {...props} user={user} userAddress={userAddress} setFinalizeDistance={setFinalizeDistance} finalizePrice={finalizePrice} finalizeCuisine={finalizeCuisine} finalizeDistance={finalizeDistance}/>}
 				/>
 				<Route
 					path="/results"
-					component={ReturnedRestaurants}
+					render={(props) => 
+                        <ReturnedRestaurants {...props} results={results} origin={origin} />}
 				/>
-                <Route 
+				<Route
+					path="/confirm"
+					component={ConfirmedResponse}
+				/>
+				<Route
+					path="/returnedList"					
+					render={(props) => 
+                        <RestaurantList {...props} results={results} restaurants={restaurants} reviews={reviews} ratings={ratings} />}
+				/>
+                {/* <Route
                     path="/userRating"
-                    component={RestaurantRating}
+					render={(props) => 
+						<RestaurantRating {...props} getRestaurants={getRestaurants} getRatings={getRatings} />}
                 />
 				<Route
 					path="/reviews"
-					component={UserReviews}
+					render={(props) => 
+						<UserReviews {...props} getRestaurants={getRestaurants} getReviews={getReviews} />}
 				/>
-
-				{/* uncomment when ready to use savedFavorites */}
-                {/* <Route 
+                <Route 
                     path="/savedFavorites"
                     render={(props) =>
-                        <SavedFavorites {...props} getSavedFavorites={getUserFavorites} />}
+                        <SavedFavorites {...props} userFavorites={userFavorites} getUserFavorites={getUserFavorites} />}
                 /> */}
             </Switch>
         </div>

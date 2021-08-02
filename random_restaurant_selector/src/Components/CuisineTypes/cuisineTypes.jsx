@@ -152,12 +152,14 @@ export default function CuisineTypes(props) {
                     </Link>
                 </Button>
             </div>
-            <Button onClick={() => props.setFinalizeCuisine(state)}>
-                Click me
-            </Button>
-
             <Button onClick={() => console.log(state)}>
-                Click me next
+                Log State
+            </Button>
+            <Button onClick={() => props.setFinalizeCuisine(filterCuisines())}>
+                Set Finalize Cuisine to Filter Cuisine
+            </Button>
+            <Button onClick={() => console.log(props.finalizeCuisine)}>
+                Log Finalize Cuisine
             </Button>
         </div>
     );
