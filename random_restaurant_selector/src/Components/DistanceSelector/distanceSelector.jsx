@@ -5,6 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import { Button } from '@material-ui/core'
 import { Link } from 'react-router-dom';
+import { length } from 'units-converter';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,48 +32,93 @@ function valuetext(value) {
     return `${value}`;
 }
 
-export default function DistanceSelector() {
+export default function DistanceSelector(props) {
     const classes = useStyles();
-    const [distance, setDistance] = useState(0);
+    const userAddress = props.userAddress;
+    const [value, setValue] = useState(0);
+    const [distInMeters, setDistInMeters] = useState(0);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+
+    const convertDistance = async (value) => {
+        debugger;
+        const radius = length(value).from('mi').to('m');
+        Math.floor(radius.value);
+        console.log(radius.value);
+        setDistInMeters(radius.value);
+        console.log(distInMeters);
+        return;
+    }
 
     return (
-        <div>
-            <div className="distance-slider">
+        <div className="distance-slider">
+            <div >
                 <div className={classes.root}>
-                    <Typography id="discrete-slider-custom" gutterBottom>
+                    <Typography id="continuous-slider" gutterBottom>
                         Select distance from you
                     </Typography>
-                    <Slider
-                        defaultValue={0}
-                        getAriaValueText={valuetext}
-                        aria-labelledby="discrete-slider-custom"
-                        step={1}
-                        valueLabelDisplay="auto"
-                        marks={marks}
-                    />
+                    <Grid container spacing={2}>
+                        <Grid item xs>
+                            <Slider
+                                value={value}
+                                getAriaValueText={valuetext}
+                                step={1}
+                                valueLabelDisplay="auto"
+                                marks={marks}
+                                onChange={handleChange}
+                                aria-labelledby="continuous-slider"
+                            />
+                        </Grid>
+                    </Grid>
                 </div>
-                <div>
-                    <Button 
-                        variant="outlined"
-                        color="Primary">
-                        <Link to="/filter2">
-                            Back to price selection
-                        </Link>
-                    </Button>
-                </div>
-                <div />
-                <div>
-                    <Button 
-                        variant="outlined"
-                        color="Primary">
-                        <Link to="/results">
-                            See your result!
-                        </Link>
-                    </Button>
-                </div>
+                <Button onClick={() => setValue(value)}>
+                    click me 
+                </Button>
 
+                <Button onClick={() => console.log(value)}>
+                    click me first
+                </Button>
+
+                <Button onClick={() => console.log(distInMeters)}>
+                    click me second
+                </Button>
+
+                <Button onClick={() => convertDistance(value)}>
+                    click me third
+                </Button>
+
+                <Button onClick={() => props.setFinalizeDistance(distInMeters)}>
+                    click me last
+                </Button>
+                <Button onClick={() => console.log(distInMeters)}>
+                    click me last again
+                </Button>
+            </div>
+            <div>
+                <Button 
+                    variant="outlined"
+                    color="Primary"
+                    onClick={() => props.setFinalizeDistance(distInMeters)}
+                >
+                    <Link to="/filter2">
+                        Back to price selection
+                    </Link>
+                </Button>
+            </div>
+            <div />
+            <div>
+                <Button 
+                    variant="outlined"
+                    color="Primary"
+                    onClick={() => props.setFinalizeDistance(distInMeters)}
+                >
+                    <Link to="/results">
+                        See your result!
+                    </Link>
+                </Button>
             </div>
         </div>
     );
 }
-
