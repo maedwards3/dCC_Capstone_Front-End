@@ -17,7 +17,7 @@ export default function Dashboard (props) {
                     </Link>
                 </Button>
             </div>
-            <div>
+            {/* <div>
                 <Button onClick={() => props.reverseGeocode()}>
                     Click to reverseGeocode
                 </Button>
@@ -26,7 +26,7 @@ export default function Dashboard (props) {
                 <Button onClick={() => props.findPlaceSearch()}>
                     Click to Find Place Search
                 </Button>
-            </div>
+            </div> */}
         </div>    
     );
 }

@@ -53,7 +53,6 @@ const UserReviews = () => {
             </Card>
         </div>
     );
-
 }
 
 export default UserReviews;

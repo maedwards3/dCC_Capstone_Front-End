@@ -9,29 +9,13 @@ export default function RestaurantRating() {
     return (
         <div>
             <Box component="fieldset" mb={3} borderColor="transparent">
-                <Typography component="legend">Pristine</Typography>
+                <Typography component="legend">Rate</Typography>
                     <Rating name="pristine"
                         value={value}
                         onChange={(event, newValue) => {
                             setValue(newValue);
                         }}
                     />
-            </Box>
-
-            <Box component="fieldset" mb={3} borderColor="transparent">
-                <Typography component="legend">Controlled</Typography>
-                    <Rating
-                        name="simple-controlled"
-                        value={value}
-                        onChange={(event, newValue) => {
-                            setValue(newValue);
-                        }}
-                        />
-            </Box>
-
-            <Box component="fieldset" mb={3} borderColor="transparent">
-                <Typography component="legend">Read only</Typography>
-                    <Rating name="read-only" value={value} readOnly />
             </Box>
         </div>
     );

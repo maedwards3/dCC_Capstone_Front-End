@@ -18,10 +18,13 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
     menuButton: {
-        marginRight: theme.spacing(2),
+        marginRight: theme.spacing(94),
       },
     title: {
         flexGrow: 1,
+    },
+    welcomeBanner: {
+        marginLeft: theme.spacing(80),
     },
 }));
 
@@ -113,8 +116,8 @@ export default function NavBar(props) {
                                                     <div>
                                                         <div>
                                                             <MenuItem onClick={handleMenuListToClosed}>
-                                                                <Link to="/reviews">
-                                                                    My Reviews
+                                                                <Link to="/savedFavorites">
+                                                                    My Saved Favorites
                                                                 </Link>
                                                             </MenuItem>
                                                         </div>
@@ -143,7 +146,7 @@ export default function NavBar(props) {
                         {!user.firstName ? (
                             <div />
                             ) : (
-                                <Typography
+                                <Typography className={classes.welcomeBanner}
                                 anchororigin={{
                                     vertical: "top",
                                     horizontal: "right",

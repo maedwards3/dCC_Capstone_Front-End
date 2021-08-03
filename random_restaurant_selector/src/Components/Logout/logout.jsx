@@ -13,7 +13,7 @@ export default function Logout() {
         else {
             console.log("There is no user logged in");
         }
-    ;}
+    };
 
     return <Redirect to="/" {...logoutUser()} />
 };

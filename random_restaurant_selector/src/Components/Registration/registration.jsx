@@ -25,7 +25,7 @@ const RegistrationForm = () => {
             }
         }
         appendToDatabase(values);
-    }
+    };
 
     return (
         <div>

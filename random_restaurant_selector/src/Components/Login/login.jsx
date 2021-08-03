@@ -14,7 +14,7 @@ const Login = (props) => {
     async function loginUser(values) {
         await getSetToken(values);
         await getSetUser();
-    }
+    };
 
         async function getSetToken(values) {
             try {
@@ -34,7 +34,7 @@ const Login = (props) => {
                 console.log("There was an error in the getSetToken POST request");
                 console.error(error);
             }
-        }
+        };
 
         async function getSetUser() {
             try {
@@ -54,9 +54,9 @@ const Login = (props) => {
                 console.log("There was an error in the getSetUser method");
                 console.error(error)
             }
-        }
+        };
 
-    return(
+    return (
         <Container className="login-form">
             <div>
                 <TextField
@@ -81,6 +81,6 @@ const Login = (props) => {
             {isLoggedIn ? <Redirect to="/"/> : console.log("user is NOT logged in")}
         </Container>
     );
-};
+}
 
 export default Login;

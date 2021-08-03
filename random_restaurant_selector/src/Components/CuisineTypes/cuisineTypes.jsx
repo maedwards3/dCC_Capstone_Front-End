@@ -8,7 +8,6 @@ import './cuisineTypes.css';
 import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
-
 export default function CuisineTypes(props) {
     const [state, setState] = useState({
         american: false,
@@ -152,7 +151,7 @@ export default function CuisineTypes(props) {
                     </Link>
                 </Button>
             </div>
-            <Button onClick={() => console.log(state)}>
+            {/* <Button onClick={() => console.log(state)}>
                 Log State
             </Button>
             <Button onClick={() => props.setFinalizeCuisine(filterCuisines())}>
@@ -160,7 +159,7 @@ export default function CuisineTypes(props) {
             </Button>
             <Button onClick={() => console.log(props.finalizeCuisine)}>
                 Log Finalize Cuisine
-            </Button>
+            </Button> */}
         </div>
     );
 }

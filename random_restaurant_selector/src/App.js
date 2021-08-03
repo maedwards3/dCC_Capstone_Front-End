@@ -14,9 +14,10 @@ import RestaurantList from './Components/RestaurantList/restaurantList';
 import ConfirmedResponse from './Components/ConfirmedResponse/confirmedResponse';
 // import RestaurantRating from './Components/Ratings/ratings';
 // import UserReviews from './Components/DisplayUserReviews/displayUserReviews';
-// import SavedFavorites from './Components/SavedFavorites/savedFavorites';
+import SavedFavorites from './Components/SavedFavorites/savedFavorites';
 
 function App() {
+    const google = window.google;
     const [user, setUser] = useState({});
 	const [restaurants, setRestaurants] = useState([]);
 	const [reviews, setReviews] = useState([]);
@@ -115,25 +116,30 @@ function App() {
 
     // Used to assist in Google Places Nearby Search request.
     const spreadKeyWords = () => {
-        return finalizeCuisine.join("+")
+        return finalizeCuisine.join(",")
     };
     
 	const findPlaceSearch = async () => {
-		console.log(finalizeCuisine);
-		console.log(finalizePrice);
-		console.log(finalizeDistance);
-        let urlString = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=
-            ${origin.lat},${origin.lng}&radius=${finalizeDistance}&type=restaurant&maxprice=${finalizePrice}&keyword=${spreadKeyWords()}
-            &key=${process.env.REACT_APP_GOOGLE_NEARBY_SEARCH_KEY}`;
-        console.log(urlString);
+		// console.log(finalizeCuisine);
+		// console.log(finalizePrice);
+		// console.log(finalizeDistance);
+        // let urlString = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=
+        //     ${origin.lat},${origin.lng}&radius=${finalizeDistance}&type=restaurant&maxprice=${finalizePrice}&keyword=${spreadKeyWords()}
+        //     &key=${process.env.REACT_APP_GOOGLE_NEARBY_SEARCH_KEY}`;
+        // console.log(urlString);
 		let response = await axios.get(
 			`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=
 			${origin.lat},${origin.lng}&radius=${finalizeDistance}&type=restaurant&maxprice=${finalizePrice}&keyword=${spreadKeyWords()}
-			&key=${process.env.REACT_APP_GOOGLE_NEARBY_SEARCH_KEY}`
+			&key=${process.env.REACT_APP_GOOGLE_NEARBY_SEARCH_KEY}`, {
+                headers: {
+                    'Access-Control-Allow-Origin': "*"
+                }
+            }
 		);
 		console.log(response.data);
 		setResults(formatResults(response.data.results));
 	};
+
 
 	// useEffect(async () => {
 	// 	getRestaurants();
@@ -197,22 +203,47 @@ function App() {
                 <Route
                     path="/filter"
 					render={(props) => 
-						<CuisineTypes {...props} setFinalizeCuisine={setFinalizeCuisine} finalizeCuisine={finalizeCuisine} />}
+						<CuisineTypes
+                            {...props}
+                            setFinalizeCuisine={setFinalizeCuisine}
+                            finalizeCuisine={finalizeCuisine}
+                        />}
                 />
 				<Route
 					path="/filter2"
 					render={(props) => 
-						<PriceSelector {...props} setFinalizePrice={setFinalizePrice} finalizePrice={finalizePrice} />}
+						<PriceSelector
+                            {...props}
+                            setFinalizePrice={setFinalizePrice}
+                            finalizePrice={finalizePrice}
+                            finalizeCuisine={finalizeCuisine}
+                        />}
 				/>
 				<Route
 					path="/filter3"
 					render={(props) => 
-                        <DistanceSelector {...props} user={user} userAddress={userAddress} setFinalizeDistance={setFinalizeDistance} finalizePrice={finalizePrice} finalizeCuisine={finalizeCuisine} finalizeDistance={finalizeDistance}/>}
+                        <DistanceSelector
+                            {...props}
+                            user={user}
+                            origin={origin}
+                            setFinalizeDistance={setFinalizeDistance}
+                            finalizePrice={finalizePrice}
+                            finalizeCuisine={finalizeCuisine}
+                            finalizeDistance={finalizeDistance}
+                            findPlaceSearch={findPlaceSearch}
+                            google={google}
+                            spreadKeyWords={spreadKeyWords}
+                        />}
 				/>
 				<Route
 					path="/results"
 					render={(props) => 
-                        <ReturnedRestaurants {...props} results={results} origin={origin} />}
+                        <ReturnedRestaurants
+                            {...props}
+                            results={results}                          
+                            formatResults={formatResults}
+                            
+                        />}
 				/>
 				<Route
 					path="/confirm"
@@ -221,7 +252,13 @@ function App() {
 				<Route
 					path="/returnedList"					
 					render={(props) => 
-                        <RestaurantList {...props} results={results} restaurants={restaurants} reviews={reviews} ratings={ratings} />}
+                        <RestaurantList
+                            {...props}
+                            results={results}
+                            restaurants={restaurants}
+                            reviews={reviews}
+                            ratings={ratings}
+                        />}
 				/>
                 {/* <Route
                     path="/userRating"
@@ -232,12 +269,11 @@ function App() {
 					path="/reviews"
 					render={(props) => 
 						<UserReviews {...props} getRestaurants={getRestaurants} getReviews={getReviews} />}
-				/>
+				/> */}
                 <Route 
                     path="/savedFavorites"
-                    render={(props) =>
-                        <SavedFavorites {...props} userFavorites={userFavorites} getUserFavorites={getUserFavorites} />}
-                /> */}
+                    component={SavedFavorites}
+                /> 
             </Switch>
         </div>
     );

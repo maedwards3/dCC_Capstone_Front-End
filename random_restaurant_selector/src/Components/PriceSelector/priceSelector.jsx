@@ -9,9 +9,8 @@ import './priceSelector.css';
 import { Button } from '@material-ui/core'
 import { Link } from 'react-router-dom';
 
-
 const PriceSelector = (props) => {
-    const[selected, setSelected] = useState('');
+    const[selected, setSelected] = useState(0);
 
     const handleChange = (event) => {
         const { value } = event.target;
@@ -22,23 +21,25 @@ const PriceSelector = (props) => {
         };
     };
 
-    return(
+    return (
         <div className="price-selector-box">
             <div>
                 <FormLabel>
                     Select your max price range
                 </FormLabel>
             </div>
+            <div><br /></div>
             <div>
                 <FormControl>
                     <RadioGroup aria-label="gender" name="gender1" value={selected} onChange={handleChange}>
-                        <FormControlLabel value="1" control={<Radio />} label={<AttachMoneyIcon/>} />
-                        <FormControlLabel value="2" control={<Radio />} label={<><AttachMoneyIcon/><AttachMoneyIcon/></>} />
-                        <FormControlLabel value="3" control={<Radio />} label={<><AttachMoneyIcon/><AttachMoneyIcon/><AttachMoneyIcon/></>} />
-                        <FormControlLabel value="4" control={<Radio />} label={<><AttachMoneyIcon/><AttachMoneyIcon/><AttachMoneyIcon/><AttachMoneyIcon/></>} />
+                        <FormControlLabel value={1} control={<Radio />} label={<AttachMoneyIcon/>} />
+                        <FormControlLabel value={2} control={<Radio />} label={<><AttachMoneyIcon/><AttachMoneyIcon/></>} />
+                        <FormControlLabel value={3} control={<Radio />} label={<><AttachMoneyIcon/><AttachMoneyIcon/><AttachMoneyIcon/></>} />
+                        <FormControlLabel value={4} control={<Radio />} label={<><AttachMoneyIcon/><AttachMoneyIcon/><AttachMoneyIcon/><AttachMoneyIcon/></>} />
                     </RadioGroup>
                 </FormControl>
             </div>
+            <div><br /></div>
             <div>
                 <Button 
                     variant="outlined"
@@ -48,7 +49,7 @@ const PriceSelector = (props) => {
                     </Link>
                 </Button>
             </div>
-            <div />
+            <div><br /></div>
             <div>
                 <Button 
                     variant="outlined"
@@ -60,9 +61,9 @@ const PriceSelector = (props) => {
                     </Link>
                 </Button>
             </div>
-            <div>
+            {/* <div>
                 <Button onClick={() => console.log(props.finalizeCuisine)}>
-                    Log FinalizeCuisine
+                    Log Finalize Cuisine
                 </Button>
                 <Button onClick={() => console.log(selected)}>
                     Log Selected
@@ -73,8 +74,7 @@ const PriceSelector = (props) => {
                 <Button onClick={() => console.log(props.finalizePrice)}>
                     Log Finalize Price
                 </Button>
-
-            </div>
+            </div> */}
         </div>
     );
 }

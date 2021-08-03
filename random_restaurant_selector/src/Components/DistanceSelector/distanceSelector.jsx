@@ -34,9 +34,12 @@ function valuetext(value) {
 
 export default function DistanceSelector(props) {
     const classes = useStyles();
+    const origin = props.origin;
     const userAddress = props.userAddress;
     const [value, setValue] = useState(0);
     const [distInMeters, setDistInMeters] = useState(0);
+    const finalizePrice = props.finalizePrice;
+    const finalizeDistance = props.finalizeDistance;
 
     const handleChange = async (event, newValue) => {
         setValue(newValue);
@@ -56,6 +59,7 @@ export default function DistanceSelector(props) {
                     <Typography id="continuous-slider" gutterBottom>
                         Select distance from you
                     </Typography>
+                    <div><br /></div>
                     <Grid container spacing={2}>
                         <Grid item xs>
                             <Slider
@@ -70,62 +74,60 @@ export default function DistanceSelector(props) {
                         </Grid>
                     </Grid>
                 </div>
+                    {/* <Button onClick={() => console.log(props.finalizeCuisine)}>
+                    Log Finalize Cuisine 
+                    </Button>
 
-                <Button onClick={() => console.log(props.finalizeCuisine)}>
-                Log Finalize Cuisine 
-                </Button>
+                    <Button onClick={() => console.log(props.finalizePrice)}>
+                        Log Finalize Price 
+                    </Button>
 
-                <Button onClick={() => console.log(props.finalizePrice)}>
-                    Log Finalize Price 
-                </Button>
+                    <Button onClick={() => setValue(value)}>
+                        Set Value 
+                    </Button>
 
-                <Button onClick={() => setValue(value)}>
-                    Set Value 
-                </Button>
+                    <Button onClick={() => console.log(value)}>
+                        Log Value
+                    </Button>
 
-                <Button onClick={() => console.log(value)}>
-                    Log Value
-                </Button>
+                    <Button onClick={() => convertDistance(value)}>
+                        Convert Distance
+                    </Button>
 
-                <Button onClick={() => convertDistance(value)}>
-                    Convert Distance
-                </Button>
+                    <Button onClick={() => console.log(distInMeters)}>
+                        Log Dist in Meters
+                    </Button>
 
-                <Button onClick={() => console.log(distInMeters)}>
-                    Log Dist in Meters
-                </Button>
+                    <Button onClick={() => props.setFinalizeDistance(distInMeters)}>
+                        Set Finalize Distance
+                    </Button>
 
-                <Button onClick={() => props.setFinalizeDistance(distInMeters)}>
-                    Set Finalize Distance
-                </Button>
-
-                <Button onClick={() => console.log(props.finalizeDistance)}>
-                    Log Finalize Distance
-                </Button>
-
-            </div>
-            <div>
-                <Button 
-                    variant="outlined"
-                    color="Primary"
-                    onClick={() => props.setFinalizeDistance(distInMeters)}
-                >
-                    <Link to="/filter2">
-                        Back to price selection
-                    </Link>
-                </Button>
-            </div>
-            <div />
-            <div>
-                <Button 
-                    variant="outlined"
-                    color="Primary"
-                    onClick={() => props.setFinalizeDistance(distInMeters)}
-                >
-                    <Link to="/results">
-                        See your result!
-                    </Link>
-                </Button>
+                    <Button onClick={() => console.log(props.finalizeDistance)}>
+                        Log Finalize Distance
+                    </Button> */}
+                <div><br /></div>
+                <div>
+                    <Button 
+                        variant="outlined"
+                        color="Primary"
+                    >
+                        <Link to="/filter2">
+                            Back to price selection
+                        </Link>
+                    </Button>
+                </div>
+                <div><br /></div>
+                <div>
+                    <Button 
+                        variant="outlined"
+                        color="Primary"
+                        onClick={() => props.findPlaceSearch()}
+                    >
+                        <Link to="/results">
+                            See your result!
+                        </Link>
+                    </Button>
+                </div>
             </div>
         </div>
     );
