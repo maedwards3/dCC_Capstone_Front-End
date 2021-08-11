@@ -15,6 +15,7 @@ import ConfirmedResponse from './Components/ConfirmedResponse/confirmedResponse'
 // import RestaurantRating from './Components/Ratings/ratings';
 // import UserReviews from './Components/DisplayUserReviews/displayUserReviews';
 import SavedFavorites from './Components/SavedFavorites/savedFavorites';
+import Map from './Components/Map/map';
 
 function App() {
     const google = window.google;
@@ -25,7 +26,7 @@ function App() {
 	const [finalizeCuisine, setFinalizeCuisine] = useState([]);
 	const [finalizePrice, setFinalizePrice] = useState(0);
 	const [finalizeDistance, setFinalizeDistance] = useState(0);
-	const [results, setResults] = useState([]);
+	const [results, setResults] = useState([{}]);
     // const [userFavorites, setUserFavorites] = useState({});
 	const [error, setError] = useState(null);
 	const [userAddress, setUserAddress] = useState({
@@ -242,7 +243,11 @@ function App() {
                             {...props}
                             results={results}                          
                             formatResults={formatResults}
-                            
+                            spreadKeyWords={spreadKeyWords}
+                            finalizePrice={finalizePrice}
+                            finalizeDistance={finalizeDistance}
+                            origin={origin}
+
                         />}
 				/>
 				<Route
