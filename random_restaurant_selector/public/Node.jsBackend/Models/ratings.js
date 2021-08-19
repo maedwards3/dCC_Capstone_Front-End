@@ -12,4 +12,4 @@ const RatingSchema = new mongoose.Schema({
     ]
 });
 
-module.export = User = mongoose.model('rating', RatingSchema);
+module.exports = Rating = mongoose.model('rating', RatingSchema);

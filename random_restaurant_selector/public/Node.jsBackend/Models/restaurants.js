@@ -5,4 +5,4 @@ const RestaurantSchema = new mongoose.Schema({
     cuisineType: String,
 });
 
-module.exports = Restaurants = mongoose.model('restaurants', RestaurantSchema);
+module.exports = Restaurant = mongoose.model('restaurants', RestaurantSchema);
