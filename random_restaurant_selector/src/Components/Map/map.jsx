@@ -18,7 +18,7 @@ const Map = (props) => {
 
     useEffect(() => {
         const googleMapScript = document.createElement('script');
-        googleMapScript.src = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=places&callback=${createGoogleMap}`;
+        googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=places&callback=${createGoogleMap}`;
         window.document.body.appendChild(googleMapScript);
         googleMapScript.addEventListener('load', () => {
             googleMap.current = createGoogleMap();
@@ -65,31 +65,6 @@ const Map = (props) => {
             map: googleMap.current
         });
     };
-
-
-    // const initialize = (props) => {
-    //     var pyrmont = new google.maps.LatLng(origin.lat,origin.lng);
-
-    //     var map = new google.maps.Map(document.getElementById('map'), {
-    //         center: pyrmont,
-    //         zoom: 15
-    //     });
-
-    //     var request = {
-    //         location: {
-    //             lat: origin.lat,
-    //             lng: origin.lng
-    //         },
-    //         radius: props.finalizeDistance,
-    //         type: ['restaurant'],
-    //         maxprice: props.finalizePrice,
-    //         keyword: props.spreadKeyWords(),
-    //     };
-
-    //     var service = new google.maps.places.PlacesService(map);
-    //     service.nearbySearch(request, callback);
-    // };
-
 
     return (
         <iframe

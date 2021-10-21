@@ -8,6 +8,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import { makeStyles } from '@material-ui/core/styles';
 import RefreshIcon from '@material-ui/icons/Refresh';
+import Map from '../Map/map';
 
 const useStyles = makeStyles({
     root: {
@@ -36,6 +37,17 @@ const ReturnedRestaurants = (props) => {
     return (
         <div className="returned-results-container">
             <h1>Your result</h1>
+            <div>
+                <Map 
+                    results={props.results}                          
+                    formatResults={props.formatResults}
+                    spreadKeyWords={props.spreadKeyWords}
+                    finalizePrice={props.finalizePrice}
+                    finalizeDistance={props.finalizeDistance}
+                    origin={props.origin}
+                    formatResults={props.formatResults}
+                />
+            </div>
             <div>
                 <Card className={classes.root} variant="outlined">
                     <CardContent>
